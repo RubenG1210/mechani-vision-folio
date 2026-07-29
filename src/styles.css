@@ -125,3 +125,71 @@
     color: var(--forest-foreground);
   }
 }
+
+/* ---------- Motion ---------- */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes blob {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  33%      { transform: translate(30px,-40px) scale(1.1); }
+  66%      { transform: translate(-20px,20px) scale(0.95); }
+}
+
+@utility animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@utility animate-fade-in {
+  animation: fade-in 0.6s ease-out both;
+}
+@utility animate-scale-in {
+  animation: scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@utility animate-slide-down {
+  animation: slide-down 0.25s ease-out both;
+}
+@utility animate-blob {
+  animation: blob 14s ease-in-out infinite;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  a, button {
+    transition: color 0.2s ease, background-color 0.2s ease,
+                border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  ::selection {
+    background: var(--forest);
+    color: var(--forest-foreground);
+  }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--muted);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--forest-muted); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
