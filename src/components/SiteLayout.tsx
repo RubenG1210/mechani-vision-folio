@@ -20,7 +20,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <Link to="/" className="font-display text-lg font-semibold tracking-tight">
             Ruben<span className="text-forest">.</span>
           </Link>
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-6 sm:flex">
             {NAV.map((item) => (
               <Link
                 key={item.to}
@@ -36,7 +36,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <button
             aria-label="Open menu"
             onClick={() => setOpen(true)}
-            className="md:hidden text-foreground"
+            className="sm:hidden text-foreground"
           >
             <Menu className="h-6 w-6" />
           </button>
