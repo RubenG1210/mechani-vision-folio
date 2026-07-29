@@ -85,6 +85,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <p className="text-sm text-muted-foreground mt-1">
               Sacramento · 916 · Building things that move.
             </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Phone available upon request.
+            </p>
           </div>
           <div className="flex items-center gap-5">
             <a
