@@ -70,7 +70,7 @@ function Projects() {
   return (
     <SiteLayout>
       <section className="mx-auto max-w-6xl px-6 pt-16 pb-24">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl animate-fade-up">
           <p className="text-sm uppercase tracking-widest text-forest mb-4">Projects</p>
           <h1 className="font-display text-4xl md:text-6xl font-semibold leading-tight">
             Things I've built, broken, and rebuilt.
@@ -82,10 +82,11 @@ function Projects() {
         </div>
 
         <div className="mt-16 grid gap-6 md:grid-cols-2">
-          {PROJECTS.map((p) => (
+          {PROJECTS.map((p, i) => (
             <article
               key={p.title}
-              className="group rounded-2xl border border-border bg-card p-8 transition-all hover:border-forest hover:shadow-lg hover:-translate-y-1"
+              className="group rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-forest hover:shadow-xl hover:shadow-forest/10 hover:-translate-y-1.5 animate-fade-up"
+              style={{ animationDelay: `${0.1 + i * 0.08}s` }}
             >
               <div className="flex items-start justify-between gap-4 mb-3">
                 <h2 className="font-display text-2xl font-semibold group-hover:text-forest transition-colors">

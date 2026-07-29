@@ -36,12 +36,14 @@ function About() {
   return (
     <SiteLayout>
       <section className="mx-auto max-w-3xl px-6 pt-16 pb-24">
-        <p className="text-sm uppercase tracking-widest text-forest mb-4">About</p>
-        <h1 className="font-display text-4xl md:text-6xl font-semibold leading-tight">
-          Sacramento kid, building toward something bigger.
-        </h1>
+        <div className="animate-fade-up">
+          <p className="text-sm uppercase tracking-widest text-forest mb-4">About</p>
+          <h1 className="font-display text-4xl md:text-6xl font-semibold leading-tight">
+            Sacramento kid, building toward something bigger.
+          </h1>
+        </div>
 
-        <div className="mt-10 space-y-6 text-lg leading-relaxed text-foreground/90">
+        <div className="mt-10 space-y-6 text-lg leading-relaxed text-foreground/90 animate-fade-up" style={{ animationDelay: "0.15s" }}>
           <p>
             I'm Ruben — a 916 native heading into Grant Union High School. I've spent the
             last few years turning after-school hours into hardware projects, MESA
@@ -55,13 +57,14 @@ function About() {
           </p>
         </div>
 
-        <div className="mt-16">
+        <div className="mt-16 animate-fade-up" style={{ animationDelay: "0.3s" }}>
           <h2 className="font-display text-2xl font-semibold mb-6">Skills</h2>
           <div className="flex flex-wrap gap-2">
-            {SKILLS.map((s) => (
+            {SKILLS.map((s, i) => (
               <span
                 key={s}
-                className="px-3 py-1.5 rounded-full border border-forest/30 text-sm text-forest bg-forest/5"
+                className="px-3 py-1.5 rounded-full border border-forest/30 text-sm text-forest bg-forest/5 transition-all hover:bg-forest/15 hover:border-forest hover:-translate-y-0.5 animate-fade-up"
+                style={{ animationDelay: `${0.35 + i * 0.05}s` }}
               >
                 {s}
               </span>
@@ -70,11 +73,11 @@ function About() {
         </div>
 
         <div className="mt-16">
-          <h2 className="font-display text-2xl font-semibold mb-8">Timeline</h2>
+          <h2 className="font-display text-2xl font-semibold mb-8 animate-fade-up">Timeline</h2>
           <ol className="relative border-l-2 border-forest/20 space-y-8 pl-6">
             {TIMELINE.map((item, i) => (
-              <li key={i} className="relative">
-                <span className="absolute -left-[31px] top-2 h-3 w-3 rounded-full bg-forest ring-4 ring-background" />
+              <li key={i} className="relative animate-fade-up" style={{ animationDelay: `${0.1 + i * 0.1}s` }}>
+                <span className="absolute -left-[31px] top-2 h-3 w-3 rounded-full bg-forest ring-4 ring-background transition-transform hover:scale-125" />
                 <div className="text-xs uppercase tracking-widest text-forest-muted">{item.year}</div>
                 <h3 className="font-display text-xl font-semibold mt-1">{item.title}</h3>
                 <p className="text-muted-foreground mt-1">{item.body}</p>
