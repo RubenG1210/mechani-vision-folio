@@ -79,6 +79,33 @@ function Contact() {
           </div>
         </form>
 
+        <div className="mt-16 pt-10 border-t border-border grid gap-4 sm:grid-cols-2">
+          <a
+            href="mailto:nebur15028@gmail.com"
+            className="flex items-start gap-3 rounded-xl border border-border p-4 hover:border-forest transition"
+          >
+            <Mail className="h-5 w-5 text-forest mt-0.5" />
+            <div>
+              <div className="font-medium">Email</div>
+              <div className="text-sm text-muted-foreground">nebur15028@gmail.com</div>
+            </div>
+          </a>
+          <a
+            href="tel:+19169042415"
+            className="flex items-start gap-3 rounded-xl border border-border p-4 hover:border-forest transition"
+          >
+            <Phone className="h-5 w-5 text-forest mt-0.5" />
+            <div>
+              <div className="font-medium">Phone</div>
+              <div className="text-sm text-muted-foreground">(916) 904-2415</div>
+              <div className="text-xs text-muted-foreground mt-1">
+                Text preferred — expect a delayed response if calling.
+              </div>
+            </div>
+          </a>
+        </div>
+
+
         <div className="mt-16 pt-10 border-t border-border">
           <p className="text-sm uppercase tracking-widest text-muted-foreground mb-6">Elsewhere</p>
           <div className="flex flex-col sm:flex-row gap-4">
