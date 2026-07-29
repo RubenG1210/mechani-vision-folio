@@ -25,11 +25,11 @@ export const Route = createFileRoute("/about")({
 const SKILLS = ["Embedded C++", "ESP32", "Sensors", "Robotics", "PCB Design", "Team Leadership"];
 
 const TIMELINE = [
-  { year: "2026", title: "Founding Grant Union FRC Team", body: "Building the school's first FIRST Robotics Competition team from scratch." },
-  { year: "2025", title: "Home Harvest — State Finalist", body: "1st place MESA prelims and regionals; advanced to the California state finals." },
-  { year: "2025", title: "MESA Coding — 1st Prelims, 3rd Regionals", body: "Team-based algorithmic problem solving under time pressure." },
-  { year: "2024", title: "Solar Car Build", body: "Competed in the MESA Sacramento solar car race." },
-  { year: "2024", title: "Started Wake-A-Time", body: "Began development on a haptic wrist alarm device." },
+  { year: "2025", title: "Solar Car Build", body: "Competed in the MESA Sacramento solar car race." },
+  { year: "2026", title: "MESA Coding — 1st Prelims, 3rd Regionals", body: "Team-based algorithmic problem solving under time pressure." },
+  { year: "2026", title: "Home Harvest — State Finalist", body: "1st place MESA prelims and regionals; advanced to the California state finals." },
+  { year: "2026", title: "Started Wake-A-Time", body: "Began development on a haptic wrist alarm device." },
+  { year: "In progress", title: "Founding Grant Union FRC Team", body: "Currently working to establish the school's first FIRST Robotics Competition team." },
 ];
 
 function About() {
