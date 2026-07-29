@@ -35,21 +35,23 @@ function BlogIndex() {
   return (
     <SiteLayout>
       <section className="mx-auto max-w-3xl px-6 pt-16 pb-24">
-        <p className="text-sm uppercase tracking-widest text-forest mb-4">Blog</p>
-        <h1 className="font-display text-4xl md:text-6xl font-semibold leading-tight">
-          Logs from the workbench.
-        </h1>
-        <p className="mt-6 text-lg text-muted-foreground">
-          Short writeups on what I'm building, learning, and trying to change.
-        </p>
+        <div className="animate-fade-up">
+          <p className="text-sm uppercase tracking-widest text-forest mb-4">Blog</p>
+          <h1 className="font-display text-4xl md:text-6xl font-semibold leading-tight">
+            Logs from the workbench.
+          </h1>
+          <p className="mt-6 text-lg text-muted-foreground">
+            Short writeups on what I'm building, learning, and trying to change.
+          </p>
+        </div>
 
         <ul className="mt-16 divide-y divide-border">
-          {BLOG_POSTS.map((post) => (
-            <li key={post.slug}>
+          {BLOG_POSTS.map((post, i) => (
+            <li key={post.slug} className="animate-fade-up" style={{ animationDelay: `${0.1 + i * 0.08}s` }}>
               <Link
                 to="/blog/$slug"
                 params={{ slug: post.slug }}
-                className="group grid gap-2 py-8 md:grid-cols-[140px_1fr_auto] md:items-baseline md:gap-6"
+                className="group grid gap-2 py-8 md:grid-cols-[140px_1fr_auto] md:items-baseline md:gap-6 transition-colors hover:pl-2"
               >
                 <time className="text-sm text-muted-foreground">
                   {new Date(post.date).toLocaleDateString("en-US", {
