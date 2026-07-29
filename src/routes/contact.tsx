@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Github, Instagram, Send, Check } from "lucide-react";
+import { Github, Instagram, Send, Check, Mail, Phone } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 
 export const Route = createFileRoute("/contact")({
