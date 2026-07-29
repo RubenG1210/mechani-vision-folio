@@ -20,7 +20,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <Link to="/" className="font-display text-lg font-semibold tracking-tight">
             Ruben<span className="text-forest">.</span>
           </Link>
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-6 sm:flex">
             {NAV.map((item) => (
               <Link
                 key={item.to}
@@ -36,7 +36,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <button
             aria-label="Open menu"
             onClick={() => setOpen(true)}
-            className="md:hidden text-foreground"
+            className="sm:hidden text-foreground"
           >
             <Menu className="h-6 w-6" />
           </button>
@@ -44,7 +44,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       </header>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-background md:hidden">
+        <div className="fixed inset-0 z-50 flex flex-col bg-background sm:hidden">
           <div className="flex items-center justify-between px-6 py-4 border-b border-border/60">
             <Link to="/" onClick={() => setOpen(false)} className="font-display text-lg font-semibold">
               Ruben<span className="text-forest">.</span>
