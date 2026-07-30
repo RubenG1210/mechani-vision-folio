@@ -52,7 +52,7 @@ function BlogIndex() {
         </div>
 
         <ul className="mt-16 divide-y divide-border">
-          {BLOG_POSTS.map((post, i) => (
+          {posts.map((post, i) => (
             <li key={post.slug} className="animate-fade-up" style={{ animationDelay: `${0.1 + i * 0.08}s` }}>
               <Link
                 to="/blog/$slug"
