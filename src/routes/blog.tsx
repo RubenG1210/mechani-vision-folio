@@ -1,7 +1,9 @@
 import { createFileRoute, Link, Outlet, useMatches } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { BLOG_POSTS } from "@/lib/blog-posts";
+import { allPosts, readPublished } from "@/lib/local-posts";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
@@ -32,6 +34,10 @@ function BlogLayout() {
 }
 
 function BlogIndex() {
+  const [posts, setPosts] = useState(BLOG_POSTS);
+  useEffect(() => {
+    setPosts(allPosts(readPublished()));
+  }, []);
   return (
     <SiteLayout>
       <section className="mx-auto max-w-3xl px-6 pt-16 pb-24">
