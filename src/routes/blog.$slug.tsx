@@ -1,13 +1,15 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { getPost } from "@/lib/blog-posts";
+import { Markdown } from "@/components/Markdown";
+import { getPost, type BlogPost } from "@/lib/blog-posts";
+import { readPublished } from "@/lib/local-posts";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
-    const post = getPost(params.slug);
-    if (!post) throw notFound();
-    return { post };
+    const post = getPost(params.slug) ?? null;
+    return { post, slug: params.slug };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
