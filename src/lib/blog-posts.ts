@@ -4,6 +4,7 @@ export type BlogPost = {
   date: string;
   excerpt: string;
   content: string[];
+  markdown?: string;
 };
 
 export const BLOG_POSTS: BlogPost[] = [
