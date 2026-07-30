@@ -1,7 +1,9 @@
 import { createFileRoute, Link, Outlet, useMatches } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { BLOG_POSTS } from "@/lib/blog-posts";
+import { allPosts, readPublished } from "@/lib/local-posts";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
@@ -32,6 +34,10 @@ function BlogLayout() {
 }
 
 function BlogIndex() {
+  const [posts, setPosts] = useState(BLOG_POSTS);
+  useEffect(() => {
+    setPosts(allPosts(readPublished()));
+  }, []);
   return (
     <SiteLayout>
       <section className="mx-auto max-w-3xl px-6 pt-16 pb-24">
@@ -46,7 +52,7 @@ function BlogIndex() {
         </div>
 
         <ul className="mt-16 divide-y divide-border">
-          {BLOG_POSTS.map((post, i) => (
+          {posts.map((post, i) => (
             <li key={post.slug} className="animate-fade-up" style={{ animationDelay: `${0.1 + i * 0.08}s` }}>
               <Link
                 to="/blog/$slug"

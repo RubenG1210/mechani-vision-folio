@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
+import { WakeInspector } from "@/components/WakeInspector";
 import { Box, CircuitBoard, PlayCircle, Cpu, Clock, MonitorSmartphone, CircleDot, Zap, Vibrate, Users, HandHeart } from "lucide-react";
 
 export const Route = createFileRoute("/projects")({
@@ -202,6 +203,7 @@ function Projects() {
           </p>
 
           <WakeSchematic />
+          <WakeInspector />
           <PlaceholderSlots />
           <ProjectTags tags={WAKE_TAGS} />
         </article>
@@ -251,11 +253,11 @@ function Projects() {
                 Help us build Sacramento's next robotics team.
               </h3>
               <div className="mt-5 flex flex-col sm:flex-row gap-3">
-                <Link to="/contact" className="btn-forest">
+                <Link to="/frc" className="btn-forest">
                   <Users className="h-4 w-4" />
                   Students: Join the Team
                 </Link>
-                <Link to="/contact" className="btn-outline-forest">
+                <Link to="/frc" className="btn-outline-forest">
                   <HandHeart className="h-4 w-4" />
                   Mentors &amp; Sponsors: Support Us
                 </Link>

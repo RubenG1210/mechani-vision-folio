@@ -5,6 +5,7 @@ import { Menu, X, Github, Instagram } from "lucide-react";
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/projects", label: "Projects" },
+  { to: "/tools", label: "Tools" },
   { to: "/blog", label: "Blog" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
@@ -85,8 +86,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <p className="text-sm text-muted-foreground mt-1">
               Sacramento · 916 · Building things that move.
             </p>
+            <a href="mailto:nebur15028@gmail.com" className="text-sm link-forest mt-1 inline-block">
+              nebur15028@gmail.com
+            </a>
             <p className="text-xs text-muted-foreground mt-1">
-              Phone available upon request.
+              Phone available upon request. 
             </p>
           </div>
           <div className="flex items-center gap-5">
