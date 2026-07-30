@@ -12,15 +12,15 @@ export const Route = createFileRoute("/blog/$slug")({
     return { post, slug: params.slug };
   },
   head: ({ loaderData }) => {
-    if (!loaderData) {
+    const post = loaderData?.post;
+    if (!post) {
       return {
         meta: [
-          { title: "Post not found — Ruben G." },
+          { title: "Build log — Ruben G." },
           { name: "robots", content: "noindex" },
         ],
       };
     }
-    const { post } = loaderData;
     return {
       meta: [
         { title: `${post.title} — Ruben G.` },
@@ -32,11 +32,20 @@ export const Route = createFileRoute("/blog/$slug")({
       ],
     };
   },
-  component: BlogPost,
+  component: BlogPostPage,
 });
 
-function BlogPost() {
-  const { post } = Route.useLoaderData();
+function BlogPostPage() {
+  const { post: staticPost, slug } = Route.useLoaderData();
+  const [post, setPost] = useState<BlogPost | null>(staticPost);
+  const [checked, setChecked] = useState(Boolean(staticPost));
+
+  useEffect(() => {
+    if (staticPost) return;
+    setPost(readPublished().find((p) => p.slug === slug) ?? null);
+    setChecked(true);
+  }, [slug, staticPost]);
+
   return (
     <SiteLayout>
       <article className="mx-auto max-w-2xl px-6 pt-16 pb-24">
@@ -46,22 +55,34 @@ function BlogPost() {
         >
           <ArrowLeft className="h-4 w-4" /> All posts
         </Link>
-        <time className="text-sm text-forest uppercase tracking-widest">
-          {new Date(post.date).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </time>
-        <h1 className="mt-3 font-display text-4xl md:text-5xl font-semibold leading-tight">
-          {post.title}
-        </h1>
-        <div className="mt-10 space-y-6 text-lg leading-relaxed text-foreground/90">
-          {post.content.map((p: string, i: number) => (
-            <p key={i}>{p}</p>
-          ))}
-        </div>
+
+        {!post ? (
+          <p className="text-muted-foreground">
+            {checked ? "That post doesn't exist." : "Loading post…"}
+          </p>
+        ) : (
+          <>
+            <time className="text-sm text-forest uppercase tracking-widest">
+              {new Date(post.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+            <h1 className="mt-3 font-display text-4xl md:text-5xl font-semibold leading-tight">
+              {post.title}
+            </h1>
+            <div className="mt-10 space-y-6 text-lg leading-relaxed text-foreground/90">
+              {post.markdown ? (
+                <Markdown source={post.markdown} />
+              ) : (
+                post.content.map((p: string, i: number) => <p key={i}>{p}</p>)
+              )}
+            </div>
+          </>
+        )}
       </article>
     </SiteLayout>
   );
 }
+
