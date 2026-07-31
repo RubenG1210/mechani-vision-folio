@@ -57,26 +57,6 @@ const PROJECTS: Project[] = [
 
 const WAKE_TAGS = ["ESP32-C3", "Embedded C++", "PCB", "Haptics", "CAD", "Wearables"];
 
-function PlaceholderSlots() {
-  const slots = [
-    { icon: Box, label: "3D CAD Render" },
-    { icon: CircuitBoard, label: "Circuit Schematic" },
-    { icon: PlayCircle, label: "Demo Video" },
-  ];
-  return (
-    <div className="mt-6 grid grid-cols-3 gap-3">
-      {slots.map(({ icon: Icon, label }) => (
-        <div
-          key={label}
-          className="aspect-video flex flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border bg-background/40 text-muted-foreground hover:border-forest/60 hover:text-forest transition"
-        >
-          <Icon className="h-6 w-6" />
-          <span className="text-[10px] uppercase tracking-wider text-center px-2">{label}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 function ProjectTags({ tags }: { tags: string[] }) {
   return (
