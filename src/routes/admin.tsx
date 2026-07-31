@@ -12,7 +12,7 @@ import {
   slugify,
   type Draft,
 } from "@/lib/local-posts";
-import { callGrok, formatPrompt, refinePrompt } from "@/lib/grok";
+import { callGrok, formatPrompt, refinePrompt, listGrokModels, DEFAULT_MODEL } from "@/lib/grok";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -87,6 +87,9 @@ function AdminPage() {
   const [ready, setReady] = useState(false);
 
   const [apiKey, setApiKey] = useState("");
+  const [model, setModel] = useState(DEFAULT_MODEL);
+  const [models, setModels] = useState<string[]>([]);
+  const [modelError, setModelError] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const [raw, setRaw] = useState("");
   const [markdown, setMarkdown] = useState("");
@@ -112,6 +115,34 @@ function AdminPage() {
     setReady(true);
   }, []);
 
+  useEffect(() => {
+    const key = apiKey.trim();
+    if (!key) {
+      setModels([]);
+      return;
+    }
+    let cancelled = false;
+    const t = setTimeout(() => {
+      listGrokModels(key)
+        .then((ids) => {
+          if (cancelled) return;
+          setModels(ids);
+          setModelError(null);
+          setModel((m) => (ids.includes(m) ? m : (ids[0] ?? DEFAULT_MODEL)));
+        })
+        .catch((e) => {
+          if (cancelled) return;
+          setModels([]);
+          setModelError(e instanceof Error ? e.message : "Could not load models.");
+        });
+    }, 500);
+    return () => {
+      cancelled = true;
+      clearTimeout(t);
+    };
+  }, [apiKey]);
+
+
   const excerpt = useMemo(() => {
     const plain = markdown
       .split("\n")
@@ -130,7 +161,7 @@ function AdminPage() {
     setBusy(kind);
     try {
       const prompt = kind === "format" ? formatPrompt(raw) : refinePrompt(markdown, tweak);
-      const out = await callGrok(apiKey.trim(), prompt);
+      const out = await callGrok(apiKey.trim(), prompt, model);
       setMarkdown(out);
       if (kind === "refine") setTweak("");
     } catch (e) {
@@ -207,9 +238,27 @@ function AdminPage() {
                 placeholder="xai-..."
                 className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 font-mono text-sm outline-none focus:border-forest"
               />
+              <label className="mt-4 block text-sm text-muted-foreground" htmlFor="grokModel">
+                Model
+              </label>
+              <select
+                id="grokModel"
+                value={model}
+                onChange={(e) => setModel(e.target.value)}
+                className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 font-mono text-sm outline-none focus:border-forest"
+              >
+                {(models.length ? models : [DEFAULT_MODEL]).map((m) => (
+                  <option key={m} value={m}>
+                    {m}
+                  </option>
+                ))}
+              </select>
               <p className="mt-2 text-xs text-muted-foreground font-mono">
-                model: grok-beta (fallback: grok-2-1212) · endpoint: api.x.ai/v1/chat/completions
+                {models.length
+                  ? `${models.length} models loaded from api.x.ai/v1/models`
+                  : modelError ?? "Enter a key to load available models"}
               </p>
+
             </div>
 
             <div className="rounded-2xl border border-border bg-card p-6">

@@ -1,13 +1,24 @@
 const SYSTEM_PROMPT =
   "You are a mechatronics engineer formatting technical portfolio logs. Write cleanly and authentically without hype or AI buzzwords. Output Markdown with spec tables, bullet points, and code blocks.";
 
-const PRIMARY_MODEL = "grok-beta";
-const FALLBACK_MODEL = "grok-2-1212";
+export const DEFAULT_MODEL = "grok-2-1212";
 
-async function grokRequest(
+export async function listGrokModels(apiKey: string): Promise<string[]> {
+  const res = await fetch("https://api.x.ai/v1/models", {
+    headers: { Authorization: `Bearer ${apiKey}` },
+  });
+  if (!res.ok) {
+    const detail = await res.text().catch(() => "");
+    throw new Error(`Model list failed (${res.status}). ${detail.slice(0, 200)}`);
+  }
+  const data = (await res.json()) as { data?: { id?: string }[] };
+  return (data.data ?? []).map((m) => m.id).filter((id): id is string => Boolean(id));
+}
+
+export async function callGrok(
   apiKey: string,
-  model: string,
-  userContent: string
+  userContent: string,
+  model: string = DEFAULT_MODEL
 ): Promise<string> {
   const res = await fetch("https://api.x.ai/v1/chat/completions", {
     method: "POST",
@@ -37,17 +48,6 @@ async function grokRequest(
   return content.trim();
 }
 
-export async function callGrok(apiKey: string, userContent: string): Promise<string> {
-  try {
-    return await grokRequest(apiKey, PRIMARY_MODEL, userContent);
-  } catch (err) {
-    try {
-      return await grokRequest(apiKey, FALLBACK_MODEL, userContent);
-    } catch {
-      throw err;
-    }
-  }
-}
 
 export function formatPrompt(raw: string) {
   return `Format these raw build notes into a portfolio blog post in Markdown:\n\n${raw}`;
