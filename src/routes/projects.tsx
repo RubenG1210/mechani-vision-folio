@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { WakeInspector } from "@/components/WakeInspector";
-import { Box, CircuitBoard, PlayCircle, Cpu, Clock, MonitorSmartphone, CircleDot, Zap, Vibrate, Users, HandHeart } from "lucide-react";
+import { Cpu, Clock, MonitorSmartphone, CircleDot, Zap, Vibrate, Users, HandHeart } from "lucide-react";
 
 export const Route = createFileRoute("/projects")({
   head: () => ({
