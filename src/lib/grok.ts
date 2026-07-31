@@ -1,7 +1,14 @@
 const SYSTEM_PROMPT =
   "You are a mechatronics engineer formatting technical portfolio logs. Write cleanly and authentically without hype or AI buzzwords. Output Markdown with spec tables, bullet points, and code blocks.";
 
-export async function callGrok(apiKey: string, userContent: string): Promise<string> {
+const PRIMARY_MODEL = "grok-beta";
+const FALLBACK_MODEL = "grok-2-1212";
+
+async function grokRequest(
+  apiKey: string,
+  model: string,
+  userContent: string
+): Promise<string> {
   const res = await fetch("https://api.x.ai/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -9,7 +16,7 @@ export async function callGrok(apiKey: string, userContent: string): Promise<str
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "grok-2",
+      model,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         { role: "user", content: userContent },
@@ -28,6 +35,18 @@ export async function callGrok(apiKey: string, userContent: string): Promise<str
   const content = data.choices?.[0]?.message?.content;
   if (!content) throw new Error("Grok returned an empty response.");
   return content.trim();
+}
+
+export async function callGrok(apiKey: string, userContent: string): Promise<string> {
+  try {
+    return await grokRequest(apiKey, PRIMARY_MODEL, userContent);
+  } catch (err) {
+    try {
+      return await grokRequest(apiKey, FALLBACK_MODEL, userContent);
+    } catch {
+      throw err;
+    }
+  }
 }
 
 export function formatPrompt(raw: string) {
