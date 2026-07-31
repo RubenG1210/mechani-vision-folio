@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { WakeInspector } from "@/components/WakeInspector";
-import { Box, CircuitBoard, PlayCircle, Cpu, Clock, MonitorSmartphone, CircleDot, Zap, Vibrate, Users, HandHeart } from "lucide-react";
+import { Cpu, Clock, MonitorSmartphone, CircleDot, Zap, Vibrate, Users, HandHeart } from "lucide-react";
 
 export const Route = createFileRoute("/projects")({
   head: () => ({
@@ -57,26 +57,6 @@ const PROJECTS: Project[] = [
 
 const WAKE_TAGS = ["ESP32-C3", "Embedded C++", "PCB", "Haptics", "CAD", "Wearables"];
 
-function PlaceholderSlots() {
-  const slots = [
-    { icon: Box, label: "3D CAD Render" },
-    { icon: CircuitBoard, label: "Circuit Schematic" },
-    { icon: PlayCircle, label: "Demo Video" },
-  ];
-  return (
-    <div className="mt-6 grid grid-cols-3 gap-3">
-      {slots.map(({ icon: Icon, label }) => (
-        <div
-          key={label}
-          className="aspect-video flex flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border bg-background/40 text-muted-foreground hover:border-forest/60 hover:text-forest transition"
-        >
-          <Icon className="h-6 w-6" />
-          <span className="text-[10px] uppercase tracking-wider text-center px-2">{label}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 function ProjectTags({ tags }: { tags: string[] }) {
   return (
@@ -204,7 +184,6 @@ function Projects() {
 
           <WakeSchematic />
           <WakeInspector />
-          <PlaceholderSlots />
           <ProjectTags tags={WAKE_TAGS} />
         </article>
 
@@ -225,7 +204,6 @@ function Projects() {
                 </p>
               )}
               <p className="text-muted-foreground leading-relaxed">{p.description}</p>
-              <PlaceholderSlots />
               <ProjectTags tags={p.tags} />
             </article>
           ))}
