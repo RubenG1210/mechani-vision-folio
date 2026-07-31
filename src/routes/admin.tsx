@@ -208,7 +208,7 @@ function AdminPage() {
                 className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 font-mono text-sm outline-none focus:border-forest"
               />
               <p className="mt-2 text-xs text-muted-foreground font-mono">
-                model: grok-2-latest · endpoint: api.x.ai/v1/chat/completions
+                model: grok-2 · endpoint: api.x.ai/v1/chat/completions
               </p>
             </div>
 
