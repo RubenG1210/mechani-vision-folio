@@ -87,6 +87,9 @@ function AdminPage() {
   const [ready, setReady] = useState(false);
 
   const [apiKey, setApiKey] = useState("");
+  const [model, setModel] = useState(DEFAULT_MODEL);
+  const [models, setModels] = useState<string[]>([]);
+  const [modelError, setModelError] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const [raw, setRaw] = useState("");
   const [markdown, setMarkdown] = useState("");
@@ -111,6 +114,34 @@ function AdminPage() {
     }
     setReady(true);
   }, []);
+
+  useEffect(() => {
+    const key = apiKey.trim();
+    if (!key) {
+      setModels([]);
+      return;
+    }
+    let cancelled = false;
+    const t = setTimeout(() => {
+      listGrokModels(key)
+        .then((ids) => {
+          if (cancelled) return;
+          setModels(ids);
+          setModelError(null);
+          setModel((m) => (ids.includes(m) ? m : (ids[0] ?? DEFAULT_MODEL)));
+        })
+        .catch((e) => {
+          if (cancelled) return;
+          setModels([]);
+          setModelError(e instanceof Error ? e.message : "Could not load models.");
+        });
+    }, 500);
+    return () => {
+      cancelled = true;
+      clearTimeout(t);
+    };
+  }, [apiKey]);
+
 
   const excerpt = useMemo(() => {
     const plain = markdown
