@@ -161,7 +161,7 @@ function AdminPage() {
     setBusy(kind);
     try {
       const prompt = kind === "format" ? formatPrompt(raw) : refinePrompt(markdown, tweak);
-      const out = await callGrok(apiKey.trim(), prompt);
+      const out = await callGrok(apiKey.trim(), prompt, model);
       setMarkdown(out);
       if (kind === "refine") setTweak("");
     } catch (e) {
@@ -238,9 +238,27 @@ function AdminPage() {
                 placeholder="xai-..."
                 className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 font-mono text-sm outline-none focus:border-forest"
               />
+              <label className="mt-4 block text-sm text-muted-foreground" htmlFor="grokModel">
+                Model
+              </label>
+              <select
+                id="grokModel"
+                value={model}
+                onChange={(e) => setModel(e.target.value)}
+                className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 font-mono text-sm outline-none focus:border-forest"
+              >
+                {(models.length ? models : [DEFAULT_MODEL]).map((m) => (
+                  <option key={m} value={m}>
+                    {m}
+                  </option>
+                ))}
+              </select>
               <p className="mt-2 text-xs text-muted-foreground font-mono">
-                model: grok-beta (fallback: grok-2-1212) · endpoint: api.x.ai/v1/chat/completions
+                {models.length
+                  ? `${models.length} models loaded from api.x.ai/v1/models`
+                  : modelError ?? "Enter a key to load available models"}
               </p>
+
             </div>
 
             <div className="rounded-2xl border border-border bg-card p-6">
