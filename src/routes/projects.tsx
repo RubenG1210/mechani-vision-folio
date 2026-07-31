@@ -184,7 +184,6 @@ function Projects() {
 
           <WakeSchematic />
           <WakeInspector />
-          <PlaceholderSlots />
           <ProjectTags tags={WAKE_TAGS} />
         </article>
 
