@@ -113,8 +113,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
         <div className="border-t border-border/60">
-          <div className="mx-auto max-w-6xl px-6 py-4 text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Ruben G. — Built in Sacramento.
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 text-xs text-muted-foreground">
+            <span>© {new Date().getFullYear()} Ruben G. — Built in Sacramento.</span>
+            <Link
+              to="/admin"
+              className="text-xs text-zinc-500 hover:text-emerald-400 transition-colors"
+            >
+              admin
+            </Link>
           </div>
         </div>
       </footer>
