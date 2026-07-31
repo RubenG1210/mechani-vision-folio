@@ -204,7 +204,6 @@ function Projects() {
                 </p>
               )}
               <p className="text-muted-foreground leading-relaxed">{p.description}</p>
-              <PlaceholderSlots />
               <ProjectTags tags={p.tags} />
             </article>
           ))}
