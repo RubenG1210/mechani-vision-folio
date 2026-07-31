@@ -12,7 +12,7 @@ import {
   slugify,
   type Draft,
 } from "@/lib/local-posts";
-import { callGrok, formatPrompt, refinePrompt } from "@/lib/grok";
+import { callGrok, formatPrompt, refinePrompt, listGrokModels, DEFAULT_MODEL } from "@/lib/grok";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
