@@ -9,9 +9,7 @@ export async function callGrok(apiKey: string, userContent: string): Promise<str
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "grok-2-latest",
-      stream: false,
-      temperature: 0.4,
+      model: "grok-2",
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         { role: "user", content: userContent },
