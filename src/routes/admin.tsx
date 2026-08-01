@@ -108,8 +108,11 @@ function AdminPage() {
   const [status, setStatus] = useState<string | null>(null);
 
   useEffect(() => {
-    setUnlocked(window.localStorage.getItem(ADMIN_UNLOCK_KEY) === "1");
+    getAdminStatus()
+      .then((s) => setUnlocked(s.unlocked))
+      .catch(() => setUnlocked(false));
     setApiKey(window.localStorage.getItem(GROK_KEY) ?? "");
+
     try {
       const d = window.localStorage.getItem(DRAFT_KEY);
       if (d) {
