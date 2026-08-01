@@ -1,18 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { Lock, Sparkles, Save, Send, KeyRound, Loader2, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Markdown } from "@/components/Markdown";
 import {
-  ADMIN_PASSCODE,
-  ADMIN_UNLOCK_KEY,
   DRAFT_KEY,
   GROK_KEY,
   publishPost,
   slugify,
   type Draft,
 } from "@/lib/local-posts";
+import { getAdminStatus, unlockAdmin, lockAdmin } from "@/lib/admin-gate.functions";
 import { callGrok, formatPrompt, refinePrompt, listGrokModels, DEFAULT_MODEL } from "@/lib/grok";
+
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
