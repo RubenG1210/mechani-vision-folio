@@ -72,7 +72,7 @@ function ToolCard({
   children: React.ReactNode;
 }) {
   return (
-    <article className="rounded-2xl border border-forest/30 bg-card p-6 transition hover:border-forest/70 animate-fade-up">
+    <article className="rounded-2xl border border-forest/30 bg-card p-6 animate-fade-up transition-all duration-300 hover:scale-[1.015] hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)]">
       <div className="flex items-center gap-3">
         <div className="rounded-lg border border-forest/40 bg-forest/10 p-2">
           <Icon className="h-5 w-5 text-forest" />

@@ -192,7 +192,7 @@ function Projects() {
           {PROJECTS.map((p, i) => (
             <article
               key={p.title}
-              className="group rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-forest hover:shadow-xl hover:shadow-forest/10 hover:-translate-y-1.5 animate-fade-up"
+              className="group rounded-2xl border border-border bg-card p-8 animate-fade-up hover:-translate-y-1.5 transition-all duration-300 hover:scale-[1.015] hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)]"
               style={{ animationDelay: `${0.1 + i * 0.08}s` }}
             >
               <h2 className="font-display text-2xl font-semibold group-hover:text-forest transition-colors">
