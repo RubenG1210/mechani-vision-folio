@@ -38,8 +38,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-3">
-            <StatusBadge className="hidden md:inline-flex" />
+          <div className="flex shrink-0 items-center gap-3">
+            <StatusBadge className="px-2 py-1 sm:px-3 sm:py-1.5" />
             <button
               aria-label="Open menu"
               onClick={() => setOpen(true)}
@@ -48,9 +48,6 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <Menu className="h-6 w-6" />
             </button>
           </div>
-        </div>
-        <div className="mx-auto max-w-6xl px-6 pb-3 md:hidden">
-          <StatusBadge />
         </div>
       </header>
 
