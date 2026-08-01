@@ -82,9 +82,10 @@ function PasscodeGate({ onUnlock }: { onUnlock: () => void }) {
             <AlertTriangle className="h-4 w-4" /> Incorrect passcode.
           </p>
         )}
-        <button type="submit" className="btn-forest mt-6 w-full justify-center">
-          Unlock
+        <button type="submit" disabled={busy} className="btn-forest mt-6 w-full justify-center disabled:opacity-60">
+          {busy ? "Checking…" : "Unlock"}
         </button>
+
       </form>
     </div>
   );
