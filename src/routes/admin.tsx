@@ -18,7 +18,7 @@ import { callGrok, formatPrompt, refinePrompt, listGrokModels, DEFAULT_MODEL } f
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Master Admin Panel — Ruben G." },
+      { title: "Admin | Ruben G." },
       { name: "description", content: "Private control panel for drafting and publishing build logs." },
       { name: "robots", content: "noindex" },
       { property: "og:title", content: "Master Admin Panel" },

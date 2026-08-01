@@ -6,7 +6,7 @@ import { Cpu, Clock, MonitorSmartphone, CircleDot, Zap, Vibrate, Users, HandHear
 export const Route = createFileRoute("/projects")({
   head: () => ({
     meta: [
-      { title: "Projects — Ruben G." },
+      { title: "Projects | Ruben G." },
       {
         name: "description",
         content:

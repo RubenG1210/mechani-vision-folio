@@ -22,8 +22,12 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link to="/" className="font-display text-lg font-semibold tracking-tight">
-            Ruben<span className="text-forest">.</span>
+          <Link
+            to="/"
+            className="min-w-0 truncate font-display text-base font-semibold tracking-tight text-foreground transition-colors hover:text-forest sm:text-lg"
+          >
+            Ruben G.<span className="hidden text-muted-foreground sm:inline"> — </span>
+            <span className="hidden text-forest sm:inline">Mechatronics</span>
           </Link>
           <nav className="hidden items-center gap-6 sm:flex">
             {NAV.map((item) => (
@@ -55,8 +59,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       {open && (
         <div className="fixed inset-0 z-50 flex flex-col bg-background sm:hidden">
           <div className="flex items-center justify-between px-6 py-4 border-b border-border/60">
-            <Link to="/" onClick={() => setOpen(false)} className="font-display text-lg font-semibold">
-              Ruben<span className="text-forest">.</span>
+            <Link to="/" onClick={() => setOpen(false)} className="font-display text-lg font-semibold tracking-tight">
+              Ruben G.<span className="text-muted-foreground"> — </span>
+              <span className="text-forest">Mechatronics</span>
             </Link>
             <button aria-label="Close menu" onClick={() => setOpen(false)}>
               <X className="h-6 w-6" />
