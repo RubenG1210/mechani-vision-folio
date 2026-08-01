@@ -6,7 +6,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 export const Route = createFileRoute("/tools")({
   head: () => ({
     meta: [
-      { title: "Mechatronics Toolkit — Ruben G." },
+      { title: "Engineering Tools | Ruben G." },
       {
         name: "description",
         content:
