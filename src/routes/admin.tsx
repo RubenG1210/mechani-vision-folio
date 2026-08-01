@@ -33,21 +33,28 @@ export const Route = createFileRoute("/admin")({
 function PasscodeGate({ onUnlock }: { onUnlock: () => void }) {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const unlock = useServerFn(unlockAdmin);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-md px-6">
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          if (value === ADMIN_PASSCODE) {
-            window.localStorage.setItem(ADMIN_UNLOCK_KEY, "1");
-            onUnlock();
-          } else {
+          setBusy(true);
+          try {
+            const res = await unlock({ data: { passcode: value } });
+            if (res.ok) onUnlock();
+            else setError(true);
+          } catch {
             setError(true);
+          } finally {
+            setBusy(false);
           }
         }}
         className="w-full max-w-sm rounded-2xl border border-forest/40 bg-card p-8 animate-scale-in"
       >
+
         <div className="flex items-center gap-3">
           <div className="rounded-lg border border-forest/40 bg-forest/10 p-2">
             <Lock className="h-5 w-5 text-forest" />
