@@ -218,15 +218,19 @@ function AdminPage() {
           </div>
           {unlocked && (
             <button
-              onClick={() => {
-                window.localStorage.removeItem(ADMIN_UNLOCK_KEY);
-                setUnlocked(false);
+              onClick={async () => {
+                try {
+                  await lockAdmin();
+                } finally {
+                  setUnlocked(false);
+                }
               }}
               className="btn-outline-forest"
             >
               <Lock className="h-4 w-4" /> Lock panel
             </button>
           )}
+
         </div>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
