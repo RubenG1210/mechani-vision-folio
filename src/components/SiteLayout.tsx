@@ -59,8 +59,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       {open && (
         <div className="fixed inset-0 z-50 flex flex-col bg-background sm:hidden">
           <div className="flex items-center justify-between px-6 py-4 border-b border-border/60">
-            <Link to="/" onClick={() => setOpen(false)} className="font-display text-lg font-semibold">
-              Ruben<span className="text-forest">.</span>
+            <Link to="/" onClick={() => setOpen(false)} className="font-display text-lg font-semibold tracking-tight">
+              Ruben G.<span className="text-muted-foreground"> — </span>
+              <span className="text-forest">Mechatronics</span>
             </Link>
             <button aria-label="Close menu" onClick={() => setOpen(false)}>
               <X className="h-6 w-6" />
