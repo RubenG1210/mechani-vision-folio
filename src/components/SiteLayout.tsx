@@ -1,6 +1,9 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
+import { motion } from "framer-motion";
 import { Menu, X, Github, Instagram } from "lucide-react";
+import { StatusBadge } from "@/components/StatusBadge";
+
 
 const NAV = [
   { to: "/", label: "Home" },
