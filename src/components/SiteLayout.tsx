@@ -16,6 +16,7 @@ const NAV = [
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
@@ -29,7 +30,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <Link
                 key={item.to}
                 to={item.to}
-                className="text-sm text-muted-foreground transition-colors hover:text-forest"
+                className="text-sm text-muted-foreground transition-colors hover:text-forest active:scale-95"
                 activeProps={{ className: "text-sm text-forest font-medium" }}
                 activeOptions={{ exact: item.to === "/" }}
               >
@@ -37,15 +38,22 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </Link>
             ))}
           </nav>
-          <button
-            aria-label="Open menu"
-            onClick={() => setOpen(true)}
-            className="sm:hidden text-foreground"
-          >
-            <Menu className="h-6 w-6" />
-          </button>
+          <div className="flex items-center gap-3">
+            <StatusBadge className="hidden md:inline-flex" />
+            <button
+              aria-label="Open menu"
+              onClick={() => setOpen(true)}
+              className="sm:hidden text-foreground active:scale-95 transition-transform"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
+          </div>
+        </div>
+        <div className="mx-auto max-w-6xl px-6 pb-3 md:hidden">
+          <StatusBadge />
         </div>
       </header>
+
 
       {open && (
         <div className="fixed inset-0 z-50 flex flex-col bg-background sm:hidden">
