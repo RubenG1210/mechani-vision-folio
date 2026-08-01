@@ -55,7 +55,8 @@ export function StatusBadge({ className = "" }: { className?: string }) {
     >
       <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
       <span className="whitespace-nowrap">
-        📍 Sacramento, CA · {time}
+        <span className="hidden sm:inline">📍 Sacramento, CA · </span>
+        {time}
         {temp !== null ? ` · ${temp}°F ${weatherIcon(code)}` : ""}
       </span>
     </div>
