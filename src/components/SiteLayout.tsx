@@ -22,8 +22,12 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link to="/" className="font-display text-lg font-semibold tracking-tight">
-            Ruben<span className="text-forest">.</span>
+          <Link
+            to="/"
+            className="min-w-0 truncate font-display text-base font-semibold tracking-tight text-foreground transition-colors hover:text-forest sm:text-lg"
+          >
+            Ruben G.<span className="hidden text-muted-foreground sm:inline"> — </span>
+            <span className="hidden text-forest sm:inline">Mechatronics</span>
           </Link>
           <nav className="hidden items-center gap-6 sm:flex">
             {NAV.map((item) => (
