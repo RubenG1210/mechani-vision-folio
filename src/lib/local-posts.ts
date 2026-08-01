@@ -3,9 +3,8 @@ import { BLOG_POSTS } from "./blog-posts";
 
 export const PUBLISHED_KEY = "ruben.publishedPosts";
 export const DRAFT_KEY = "ruben.postDraft";
-export const ADMIN_UNLOCK_KEY = "ruben.adminUnlocked";
 export const GROK_KEY = "ruben.grokApiKey";
-export const ADMIN_PASSCODE = "1980";
+
 
 export type Draft = {
   title: string;

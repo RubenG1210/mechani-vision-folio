@@ -1,18 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { Lock, Sparkles, Save, Send, KeyRound, Loader2, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Markdown } from "@/components/Markdown";
 import {
-  ADMIN_PASSCODE,
-  ADMIN_UNLOCK_KEY,
   DRAFT_KEY,
   GROK_KEY,
   publishPost,
   slugify,
   type Draft,
 } from "@/lib/local-posts";
+import { getAdminStatus, unlockAdmin, lockAdmin } from "@/lib/admin-gate.functions";
 import { callGrok, formatPrompt, refinePrompt, listGrokModels, DEFAULT_MODEL } from "@/lib/grok";
+
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -32,21 +33,28 @@ export const Route = createFileRoute("/admin")({
 function PasscodeGate({ onUnlock }: { onUnlock: () => void }) {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const unlock = useServerFn(unlockAdmin);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-md px-6">
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          if (value === ADMIN_PASSCODE) {
-            window.localStorage.setItem(ADMIN_UNLOCK_KEY, "1");
-            onUnlock();
-          } else {
+          setBusy(true);
+          try {
+            const res = await unlock({ data: { passcode: value } });
+            if (res.ok) onUnlock();
+            else setError(true);
+          } catch {
             setError(true);
+          } finally {
+            setBusy(false);
           }
         }}
         className="w-full max-w-sm rounded-2xl border border-forest/40 bg-card p-8 animate-scale-in"
       >
+
         <div className="flex items-center gap-3">
           <div className="rounded-lg border border-forest/40 bg-forest/10 p-2">
             <Lock className="h-5 w-5 text-forest" />
@@ -74,9 +82,10 @@ function PasscodeGate({ onUnlock }: { onUnlock: () => void }) {
             <AlertTriangle className="h-4 w-4" /> Incorrect passcode.
           </p>
         )}
-        <button type="submit" className="btn-forest mt-6 w-full justify-center">
-          Unlock
+        <button type="submit" disabled={busy} className="btn-forest mt-6 w-full justify-center disabled:opacity-60">
+          {busy ? "Checking…" : "Unlock"}
         </button>
+
       </form>
     </div>
   );
@@ -99,8 +108,11 @@ function AdminPage() {
   const [status, setStatus] = useState<string | null>(null);
 
   useEffect(() => {
-    setUnlocked(window.localStorage.getItem(ADMIN_UNLOCK_KEY) === "1");
+    getAdminStatus()
+      .then((s) => setUnlocked(s.unlocked))
+      .catch(() => setUnlocked(false));
     setApiKey(window.localStorage.getItem(GROK_KEY) ?? "");
+
     try {
       const d = window.localStorage.getItem(DRAFT_KEY);
       if (d) {
@@ -206,15 +218,19 @@ function AdminPage() {
           </div>
           {unlocked && (
             <button
-              onClick={() => {
-                window.localStorage.removeItem(ADMIN_UNLOCK_KEY);
-                setUnlocked(false);
+              onClick={async () => {
+                try {
+                  await lockAdmin();
+                } finally {
+                  setUnlocked(false);
+                }
               }}
               className="btn-outline-forest"
             >
               <Lock className="h-4 w-4" /> Lock panel
             </button>
           )}
+
         </div>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
