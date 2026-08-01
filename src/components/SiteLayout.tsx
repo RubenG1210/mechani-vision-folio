@@ -88,7 +88,16 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         </div>
       )}
 
-      <main className="flex-1">{children}</main>
+      <motion.main
+        key={pathname}
+        className="flex-1"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        {children}
+      </motion.main>
+
 
       <footer className="border-t border-border/60 mt-24">
         <div className="mx-auto max-w-6xl px-6 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
