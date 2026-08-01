@@ -173,6 +173,10 @@
                 border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
   }
 
+  button:active, .btn-forest:active, .btn-outline-forest:active {
+    transform: scale(0.95);
+  }
+
   ::selection {
     background: var(--forest);
     color: var(--forest-foreground);
